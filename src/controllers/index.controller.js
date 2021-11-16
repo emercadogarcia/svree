@@ -1,16 +1,29 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    password: '',
-    database: 'firstapi',
-    port: '5432'
+    // user: 'postgres',
+    // host: 'localhost',
+    // password: '',
+    // database: 'firstapi',
+    // port: '5432'
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
 });
+
+// pool.connect();
 
 const getUsers = async (req, res) => {
     const response = await pool.query('SELECT * FROM users ORDER BY id ASC');
+    pool.connect();
     res.status(200).json(response.rows);
+};
+
+const getSqldb = async (req, res) => {
+    // pool.connect();
+    const response = await pool.query('SELECT table_schema,table_name FROM information_schema.tables;');
+    res.status(200).json(response.rows);    
 };
 
 const getUserById = async (req, res) => {
@@ -55,5 +68,6 @@ module.exports = {
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getSqldb
 };
