@@ -11,7 +11,8 @@ CREATE TABLE users (
 );
 
 INSERT INTO users (name, email)
-    VALUES ('joe', 'joe@ibm.com'),
-    ('ryan', 'ryan@faztweb.com');
+    VALUES ('emercado', 'emercado@gmail.com'),
+    ('erojas', 'erojas@gmail.com'),
+    ('webuseer', 'webuser@gmail.com');
 
 select * from users;
